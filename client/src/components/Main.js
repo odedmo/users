@@ -2,8 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 
-import Search from './Search'; 
-import AddButton from './AddButton';
+import Search from './Search';
 import Table from './Table';
 
 export default class Main extends React.Component {
@@ -11,10 +10,10 @@ export default class Main extends React.Component {
     super(props);
     this.state = {
       users: [],
-      addClicked: false
+      addingUser: false
     };
     this.getUsers = this.getUsers.bind(this);
-    this.addClicked = this.addClicked.bind(this);
+    this.addingUser = this.addingUser.bind(this);
   }
 
   getUsers() {
@@ -28,20 +27,20 @@ export default class Main extends React.Component {
       })
   }
 
-  addClicked() {
-    this.setState({ ...this.state, addClicked: true });
+  addingUser() {
+    this.setState({ ...this.state, addingUser: true });
   }
 
   render() {
-    const addClicked = this.state.addClicked;
-    if (addClicked) {
+    const { addingUser } = this.state;
+    if (addingUser) {
       return <Redirect to="/add" />
     }
     return (
-      <div id="main">
+      <div>
         <div id="head">
           <Search />
-          <AddButton addCliked={this.addClicked}/>
+          <button onClick={this.addingUser}>Add User</button>
         </div>
         <Table getUsers={this.getUsers} users={this.state.users}/>
       </div>
