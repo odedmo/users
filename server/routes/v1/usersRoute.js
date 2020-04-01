@@ -17,18 +17,18 @@ router.get('/', async (req, res) => {
 });
 
 // get single user
-router.get('/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    const user = await userService.getUser(id);
-    if (!user) {
-      return res.status(400).json(ResponseHelper.createAPIError('User not found'));
-    }
-    res.json(ResponseHelper.createAPIResponse(user));
-  } catch (error) {
-    res.status(500).json(ResponseHelper.createAPIError(error));
-  }
-});
+// router.get('/:id', async (req, res) => {
+//   const { id } = req.params;
+//   try {
+//     const user = await userService.getUser(id);
+//     if (!user) {
+//       return res.status(400).json(ResponseHelper.createAPIError('User not found'));
+//     }
+//     res.json(ResponseHelper.createAPIResponse(user));
+//   } catch (error) {
+//     res.status(500).json(ResponseHelper.createAPIError(error));
+//   }
+// });
 
 // save new user
 router.post('/', async (req, res) => {
@@ -43,9 +43,9 @@ router.post('/', async (req, res) => {
 
 // update user
 router.put('/', async (req, res) => {
-  const { id, firstName, lastName, age, gender, maritalStatus, kids } = req.body;
+  const { _id, id, firstName, lastName, age, gender, maritalStatus, kids } = req.body;
   try {
-    const user = await userService.updateUser({ id, firstName, lastName, age, gender, maritalStatus, kids });
+    await userService.updateUser({ _id, id, firstName, lastName, age, gender, maritalStatus, kids });
     res.status(204).end();
   } catch (error) {
     res.status(500).json(ResponseHelper.createAPIError(error));

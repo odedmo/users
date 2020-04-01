@@ -56,11 +56,12 @@ const App = () => {
         setUsers([...users, user]);
       } else {
         await UsersService.updateUser(user);
-        setUsers([...users.filter(u => u.id !== user.id), user]);
+        setUsers([...users.filter(u => u._id !== user._id), user]);
       }
       setModalState({show: false, user: {}});
     } catch (error) {
-      // TODO: handle errors
+      // todo - handle error
+      console.log(error);
     }
   }
 

@@ -1,15 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Col, Row } from 'react-bootstrap';
 
 const UserFormModal = ({show, handleClose, onSave, user}) => {
   const [newUser, setNewUser] = useState(null);
   const [kids, setKids] = useState(['']);
   const [newKids, setNewKids] = useState(['']);
-  const [formData, setFormData] = useState({
-    id: user.id || '',
-    firstName: user.firstName || '',
-    lastName: user.lastName || ''
-  })
+  const [formData, setFormData] = useState({});
 
   const save = () => {
     onSave(formData);
@@ -34,8 +30,11 @@ const UserFormModal = ({show, handleClose, onSave, user}) => {
   }
 
   useEffect(() => {
-    setKids(user.kids || ['']);
-  }, []);
+    // setKids(user.kids || ['']);
+    if (user.id) {
+      setFormData({...formData, ...user});
+    }
+  }, [user]);
 
   return (
     <Modal show={show} onHide={handleClose} centered>
@@ -108,7 +107,7 @@ const UserFormModal = ({show, handleClose, onSave, user}) => {
 
           <div className="seperator"></div>
 
-          <Form.Group as={Row} controlId="userForm.kids" className="form-kids">
+          <Form.Group as={Row} className="form-kids">
             <Form.Label column sm="12">Kids:</Form.Label>
             <Col sm="8">
               {kids.map((kid, i) => <Form.Control required type="text" defaultValue={kid} key={`${kid}_${i}`} />) }
