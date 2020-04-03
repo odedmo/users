@@ -4,32 +4,32 @@ const UserSchema = new mongoose.Schema({
   id: {
     type: String,
     unique: true,
-    required: true,
+    required: true
   },
   firstName: {
     type: String,
-    required: true,
+    required: true
   },
   lastName: {
     type: String,
-    required: true,
+    required: true
   },
   age: {
     type: Number,
-    required: true,
+    required: true
   },
   gender: {
     type: String,
     required: true,
-    enum: ['Male', 'Female'],
+    enum: ['Male', 'Female']
   },
   maritalStatus: {
     type: String,
     required: true,
-    enum: [ 'Single', 'Married', 'Divorced', 'Widower'],
+    enum: [ 'Single', 'Married', 'Divorced', 'Widower']
   },
   kids: {
-    type: [String],
+    type: [String]
   },
 });
 

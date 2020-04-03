@@ -38,7 +38,6 @@ const App = () => {
     } else {
       setUsers(allUsers.filter( user => user.firstName.indexOf(searchTerm) > -1));
     }
-    console.log('onSearchClick clicked: ', searchTerm);
   }
 
   const handleClose = () => {
@@ -56,7 +55,10 @@ const App = () => {
         setUsers([...users, user]);
       } else {
         await UsersService.updateUser(user);
-        setUsers([...users.filter(u => u._id !== user._id), user]);
+        const usersClone = users.map(u => {
+          return u._id === user._id ? user : u;
+        } );
+        setUsers(usersClone);
       }
       setModalState({show: false, user: {}});
     } catch (error) {
